@@ -45,20 +45,20 @@ SJson *sj_new_bool(int b)
 
 long sj_get_file_Size(FILE *file)
 {
-  long size;
+    long size;
 
-  if(file != NULL){
-    if( fseek(file, 0, SEEK_END) ){
-      fclose(file);
-      return -1;
+    if (file != NULL) {
+        if (fseek(file, 0, SEEK_END)) {
+            fclose(file);
+            return -1;
+        }
+
+        size = ftell(file);
+        rewind(file);
+        return size;
     }
 
-    size = ftell(file);
-    rewind(file);
-    return size;
-  }
-
-  return -1;
+    return -1;
 }
 
 SJson *sj_load(const char *filename)
