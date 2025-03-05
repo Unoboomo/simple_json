@@ -47,18 +47,18 @@ long sj_get_file_Size(FILE *file)
 {
     long size;
 
-    if (file != NULL) {
-        if (fseek(file, 0, SEEK_END)) {
-            fclose(file);
-            return -1;
-        }
-
-        size = ftell(file);
-        rewind(file);
-        return size;
+    if (!file)
+    {
+        return -1;
     }
+    do
+    {
+        fgetc(file);
+    } while (!feof(file));
 
-    return -1;
+    size = ftell(file);
+    rewind(file);
+    return size;
 }
 
 SJson *sj_load(const char *filename)
